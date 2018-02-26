@@ -12,5 +12,4 @@ public class TransitionMap<S, T> extends HashMap<Pair<S, T>, Set<S>> implements 
 		return get(new Pair<S, T>(s, input));
 	}
 
-	
 }

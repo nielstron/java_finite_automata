@@ -5,6 +5,7 @@ import java.util.Set;
 
 /**
  * NFA in form of a graph
+ * 
  * @author nielstron
  *
  */
@@ -14,7 +15,7 @@ public class FiniteAutomaton<S, T> {
 	 * Set of possible states
 	 */
 	private Set<S> states;
-	
+
 	/**
 	 * Set of possible Inputs
 	 */
@@ -24,12 +25,12 @@ public class FiniteAutomaton<S, T> {
 	 * Transition function for the automaton
 	 */
 	private TransitionFunction<S, T> transitionF;
-	
+
 	/**
 	 * Initial States
 	 */
 	private Set<S> init;
-	
+
 	/**
 	 * Set of accepting states
 	 */
@@ -44,9 +45,11 @@ public class FiniteAutomaton<S, T> {
 		this.init = init;
 		this.accepting = accepting;
 	}
-	
-	public FiniteAutomaton(){
-		this(new HashSet<>(), new HashSet<>(), (s,i)->{return new HashSet<S>();}, new HashSet<>(), new HashSet<>());
+
+	public FiniteAutomaton() {
+		this(new HashSet<>(), new HashSet<>(), (s, i) -> {
+			return new HashSet<S>();
+		}, new HashSet<>(), new HashSet<>());
 	}
 
 	/**
@@ -57,7 +60,8 @@ public class FiniteAutomaton<S, T> {
 	}
 
 	/**
-	 * @param states the states to set
+	 * @param states
+	 *            the states to set
 	 */
 	public void setStates(Set<S> states) {
 		this.states = states;
@@ -71,7 +75,8 @@ public class FiniteAutomaton<S, T> {
 	}
 
 	/**
-	 * @param inputValues the inputValues to set
+	 * @param inputValues
+	 *            the inputValues to set
 	 */
 	public void setInputValues(Set<T> inputValues) {
 		this.inputValues = inputValues;
@@ -85,7 +90,8 @@ public class FiniteAutomaton<S, T> {
 	}
 
 	/**
-	 * @param transitionF the transitionF to set
+	 * @param transitionF
+	 *            the transitionF to set
 	 */
 	public void setTransitionF(TransitionFunction<S, T> transitionF) {
 		this.transitionF = transitionF;
@@ -99,7 +105,8 @@ public class FiniteAutomaton<S, T> {
 	}
 
 	/**
-	 * @param init the init to set
+	 * @param init
+	 *            the init to set
 	 */
 	public void setInit(Set<S> init) {
 		this.init = init;
@@ -113,12 +120,11 @@ public class FiniteAutomaton<S, T> {
 	}
 
 	/**
-	 * @param accepting the accepting to set
+	 * @param accepting
+	 *            the accepting to set
 	 */
 	public void setAccepting(Set<S> accepting) {
 		this.accepting = accepting;
 	}
-	
-	
-	
+
 }

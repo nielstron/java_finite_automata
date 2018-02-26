@@ -12,7 +12,9 @@ public class Pair<T1, T2> {
 		this.second = second;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -24,7 +26,9 @@ public class Pair<T1, T2> {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -48,7 +52,6 @@ public class Pair<T1, T2> {
 			return false;
 		return true;
 	}
-
 
 	/**
 	 * @return the first
