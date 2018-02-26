@@ -1,16 +1,19 @@
 package view;
 
 import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collection;
 import java.util.HashSet;
-import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
-import com.paypal.digraph.parser.GraphEdge;
-import com.paypal.digraph.parser.GraphNode;
-import com.paypal.digraph.parser.GraphParser;
-
+import guru.nidi.graphviz.attribute.MutableAttributed;
+import guru.nidi.graphviz.model.Link;
+import guru.nidi.graphviz.model.MutableGraph;
+import guru.nidi.graphviz.model.MutableNode;
+import guru.nidi.graphviz.model.MutableNodePoint;
+import guru.nidi.graphviz.parse.Parser;
 import model.FiniteAutomaton;
 import model.Pair;
 import model.TransitionMap;
@@ -22,6 +25,16 @@ import model.TransitionMap;
  */
 public class GraphConverter {
 
+	public Object getAttribute(MutableAttributed<?> attr, String key){
+		
+		for(Entry<String, Object> entry : attr){
+			if(entry.getKey().equals(key)){
+				return entry.getValue();
+			}
+		}
+		return null;
+	}
+	
 	/**
 	 * Parses a string-representation of a finite automaton <br>
 	 * Format should be in GraphViz like at
@@ -38,10 +51,15 @@ public class GraphConverter {
 	 */
 	public FiniteAutomaton<String, String> stringToFA(InputStream inputStream) {
 		
-		GraphParser parser = new GraphParser(inputStream);
+		MutableGraph parsedGraph;
+		try {
+			parsedGraph = Parser.read(inputStream);
+		} catch (IOException e1) {
+			return new FiniteAutomaton<>();
+		}
 		
-		Map<String, GraphNode> nodes = parser.getNodes();
-		Map<String, GraphEdge> edges = parser.getEdges();
+		Collection<MutableNode> nodes = parsedGraph.nodes();
+		Collection<Link> edges = parsedGraph.links();
 		
 		Set<String> states = new HashSet<>();
 		Set<String> inputs = new HashSet<>();
@@ -50,41 +68,42 @@ public class GraphConverter {
 		Set<String> acceptingStates = new HashSet<>();
 		
 		// Add all nodes to state space
-		for(GraphNode node : nodes.values()){
+		for(MutableNode node : nodes){
 			// if the shape is "point" the node is not a real state
-			if("point".equals(node.getAttribute("shape"))){
-				continue;
+			if(!"point".equals(getAttribute(node.attrs(), "shape"))){
+				
+				String state = node.label().toString();
+				states.add(state);
+				
+				// If the node is doublecircled it is accepting
+				if("doublecircle".equals(getAttribute(node, "shape"))){
+					acceptingStates.add(state);
+				}
 			}
-			
-			String state = node.getId();
-			states.add(state);
-			
-			// If the node is doublecircled it is accepting
-			if("doublecircle".equals(node.getAttribute("shape"))){
-				acceptingStates.add(state);
+			// Process all of its links
+			for(Link l : node.links()){
+				MutableNode from = ((MutableNodePoint) l.from()).node();
+				MutableNode to = ((MutableNodePoint) l.to()).node();
+				if("point".equals(getAttribute(from, "shape"))){
+					initStates.add(to.label().toString());
+					continue;
+				}
+				String input = (String) getAttribute(l.attrs(), "label");
+
+				if(input == null || input.equals("&epsilon;") || input.equals("")){
+					input = "";
+				}
+				// add the input to input space
+				inputs.add(input);
+				// add the transition to the transitionfunction
+				Pair<String, String> tuple = new Pair<>(from.label().toString(), input);
+				if(transition.get(tuple) == null){
+					transition.put(tuple, new HashSet<>());
+				}
+				transition.get(tuple).add(to.label().toString());
 			}
 		}
 		
-		// Add all edges to the transitionfunction and all inputs to input space
-		for(GraphEdge e : edges.values()){
-			// If the starting nodes shape is "point" this marks an initial state
-			if("point".equals(e.getNode1().getAttribute("shape"))){
-				initStates.add(e.getNode2().getId());
-				continue;
-			}
-			String input = (String) e.getAttribute("label");
-			String from = e.getNode1().getId();
-			String to = e.getNode2().getId();
-			if(input == null || input.equals("&epsilon;") || input.equals("")) input = "";
-			// add the input to input space
-			inputs.add(input);
-			// add the transition to the transitionfunction
-			Pair<String, String> tuple = new Pair<>(from, input);
-			if(transition.get(tuple) == null){
-				transition.put(tuple, new HashSet<>());
-			}
-			transition.get(tuple).add(to);
-		}
 		
 		return new FiniteAutomaton<>(states, inputs, transition, initStates, acceptingStates);
 		
@@ -121,11 +140,14 @@ public class GraphConverter {
 		
 		// Insert all of the normal states
 		for(Object s : nfa.getStates()){
-			result += indent + "\"" + s.toString().replace('[', '{').replace(']', '}') + "\"";
+			result += indent + "\"" + s.toString().replace('[', '{').replace(']', '}') + "\" [shape = ";
 			if(nfa.getAccepting().contains(s)){
-				result += " [shape = doublecircle]";
+				result += "doublecircle";
 			}
-			result += ";\n";
+			else{
+				result += "circle";
+			}
+			result += "];\n";
 		}
 		
 		result += "\n";

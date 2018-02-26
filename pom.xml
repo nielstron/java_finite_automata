@@ -9,9 +9,14 @@
 	<name>Powerset Construction</name>
 	<dependencies>
 		<dependency>
-			<groupId>com.paypal.digraph</groupId>
-			<artifactId>digraph-parser</artifactId>
-			<version>1.0</version>
+			<groupId>guru.nidi</groupId>
+			<artifactId>graphviz-java</artifactId>
+			<version>0.2.3</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.2.3</version>
 		</dependency>
 	</dependencies>
 </project>
