@@ -56,4 +56,4 @@ digraph {
 
 Visualized with [GraphViz](https://graphviz.gitlab.io):
 
-![input automata (NFA)](examples/example-1-input.png) ->  ![output automata (DFA)](examples/example-1-output.png)
+<img src="examples/example-1-input.png" alt="input automata (NFA)" style="height: 200px;"/> -> <img src="examples/example-1-output.png" alt="output automata (DFA)" style="height: 200px;"/>
