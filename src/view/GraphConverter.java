@@ -92,8 +92,11 @@ public class GraphConverter {
 				if(input == null || input.equals("&epsilon;") || input.equals("")){
 					input = "";
 				}
-				// add the input to input space
-				inputs.add(input);
+				else{
+					// add the input to input space
+					// exclude the empty word as it is not real input
+					inputs.add(input);
+				}
 				// add the transition to the transitionfunction
 				Pair<String, String> tuple = new Pair<>(from.label().toString(), input);
 				if(transition.get(tuple) == null){

@@ -28,6 +28,8 @@ digraph finite_state_machine {
     q1 -> q2 [ label = "b" ];
     q2 -> q1 [ label = "b" ];
     q2 -> q2 [ label = "b" ];
+    q2 -> q3 [ label = "&epsilon;"];
+    q3 -> q2 [ label = "a" ];
 }
 
 -- Result ->
@@ -35,21 +37,23 @@ digraph finite_state_machine {
 digraph {
 
     "__init" [shape = point];
-    "{q2}" [shape = circle];
-    "{q1, q2}" [shape = circle];
     "{q1, S}" [shape = doublecircle];
+    "{q2, q3}" [shape = circle];
+    "{q1, q2, q3}" [shape = circle];
     "{S}" [shape = doublecircle];
 
     __init -> "{S}";
 
-    "{q2}" -> "{q1, q2}" [label = "b"];
-    "{q1, q2}" -> "{S}" [label = "a"];
-    "{q1, q2}" -> "{q1, q2}" [label = "b"];
     "{q1, S}" -> "{q1, S}" [label = "a"];
-    "{q1, S}" -> "{q2}" [label = "b"];
+    "{q1, S}" -> "{q2, q3}" [label = "b"];
+    "{q2, q3}" -> "{q1, q2, q3}" [label = "b"];
+    "{q1, q2, q3}" -> "{S}" [label = "a"];
+    "{q1, q2, q3}" -> "{q1, q2, q3}" [label = "b"];
     "{S}" -> "{q1, S}" [label = "a"];
 }
 
 ```
 
-&epsilon; moves aren't yet supported.
+Visualized with [GraphViz](https://graphviz.gitlab.io):
+
+![input automata (NFA)](examples/example-1-input.png) ->  ![output automata (DFA)](examples/example-1-output.png)

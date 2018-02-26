@@ -70,7 +70,7 @@ public class mainFrame extends JFrame {
 		contentPane.add(lblInsertGraphIn, "cell 0 0");
 		
 		JTextArea txtrDigraphFinitestatemachine = new JTextArea();
-		txtrDigraphFinitestatemachine.setText("digraph {\r\n    \r\n    qi [shape = point];\r\n    X; 0; 1; 2; 3 [shape = doublecircle];\r\n    \r\n\tqi -> X;\r\n    X -> X [label = \"1\"];\r\n    X -> X [label = \"0\"];\r\n    X -> 0 [label = \"1\"];\r\n    0 -> 1 [label = \"1\"];\r\n    0 -> 1 [label = \"0\"];\r\n    1 -> 2 [label = \"1\"];\r\n    1 -> 2 [label = \"0\"];\r\n    2 -> 3 [label = \"1\"];\r\n    2 -> 3 [label = \"0\"];\r\n\r\n}");
+		txtrDigraphFinitestatemachine.setText("digraph {\r\n    \r\n    qi [shape = point];\r\n    node [shape = circle];\r\n    X; 0; 1; 2;\r\n    3 [shape = doublecircle];\r\n    \r\n    qi -> X;\r\n    X -> X [label = \"1\"];\r\n    X -> X [label = \"0\"];\r\n    X -> 0 [label = \"1\"];\r\n    0 -> 1 [label = \"1\"];\r\n    0 -> 1 [label = \"0\"];\r\n    1 -> X [label = \"&epsilon;\"];\r\n    1 -> 2 [label = \"0\"];\r\n    2 -> 3 [label = \"1\"];\r\n    2 -> 3 [label = \"0\"];\r\n\r\n}");
 		contentPane.add(txtrDigraphFinitestatemachine, "cell 0 1,grow");
 		
 		JButton btnCreatePowersetConstrcution = new JButton("Create powerset constrcution");

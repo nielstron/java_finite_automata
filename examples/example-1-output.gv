@@ -1,0 +1,17 @@
+digraph {
+
+    "__init" [shape = point];
+    "{q1, S}" [shape = doublecircle];
+    "{q2, q3}" [shape = circle];
+    "{q1, q2, q3}" [shape = circle];
+    "{S}" [shape = doublecircle];
+
+    __init -> "{S}";
+
+    "{q1, S}" -> "{q1, S}" [label = "a"];
+    "{q1, S}" -> "{q2, q3}" [label = "b"];
+    "{q2, q3}" -> "{q1, q2, q3}" [label = "b"];
+    "{q1, q2, q3}" -> "{S}" [label = "a"];
+    "{q1, q2, q3}" -> "{q1, q2, q3}" [label = "b"];
+    "{S}" -> "{q1, S}" [label = "a"];
+}
