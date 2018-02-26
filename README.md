@@ -6,11 +6,11 @@ Reads in Graphs formatted in the [DOT language](https://graphviz.gitlab.io/_page
 
 Following format should be considered:
  - Normal or doublecircled nodes represent states
- - Edges with labels represent state transitions, edges without labels represent &epsilon; transitions
- - Accepting states have shape "doublecircle"
- - Initial states are marked by a state with shape "point" and an edge towards the initial state
- - The name "\_\_init" may not be used for any node
- - Use `"&epsilon;"` or `""` for &epsilon; moves
+ - Edges with labels represent state transitions
+ - Use `"&epsilon;"` or `""` or no label for &epsilon; transitions
+ - Accepting states are formatted `[shape=doublecircle]`
+ - Initial states are marked by a state with `[shape=point]` and an edge towards the initial states
+
 
 Outputs an equivalent DNF in DOT language format.
 
