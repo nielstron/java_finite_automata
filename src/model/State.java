@@ -19,9 +19,7 @@ public class State {
 		return name;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -32,9 +30,7 @@ public class State {
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -53,5 +49,7 @@ public class State {
 			return false;
 		return true;
 	}
+
+
 
 }

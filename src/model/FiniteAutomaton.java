@@ -47,7 +47,7 @@ public class FiniteAutomaton<S, T> {
 	}
 
 	public FiniteAutomaton() {
-		this(new HashSet<>(), new HashSet<>(), (s, i) -> {
+		this(new HashSet<>(), new HashSet<>(), (state, input) -> {
 			return new HashSet<S>();
 		}, new HashSet<>(), new HashSet<>());
 	}
