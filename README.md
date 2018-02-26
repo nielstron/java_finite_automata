@@ -34,19 +34,19 @@ digraph finite_state_machine {
 strict digraph {
 
     "__init" [shape = point];
-    "[q2]";
-    "[q1, q2]";
-    "[q1, S]" [shape = doublecircle];
-    "[S]" [shape = doublecircle];
+    "{q2}";
+    "{q1, q2}";
+    "{q1, S}" [shape = doublecircle];
+    "{S}" [shape = doublecircle];
 
-    __init -> "[S]";
+    __init -> "{S}";
 
-    "[q2]" -> "[q1, q2]" [label = "b"];
-    "[q1, q2]" -> "[S]" [label = "a"];
-    "[q1, q2]" -> "[q1, q2]" [label = "b"];
-    "[q1, S]" -> "[q1, S]" [label = "a"];
-    "[q1, S]" -> "[q2]" [label = "b"];
-    "[S]" -> "[q1, S]" [label = "a"];
+    "{q2}" -> "{q1, q2}" [label = "b"];
+    "{q1, q2}" -> "{S}" [label = "a"];
+    "{q1, q2}" -> "{q1, q2}" [label = "b"];
+    "{q1, S}" -> "{q1, S}" [label = "a"];
+    "{q1, S}" -> "{q2}" [label = "b"];
+    "{S}" -> "{q1, S}" [label = "a"];
 }
 
 ```
