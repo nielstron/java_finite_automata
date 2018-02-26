@@ -1,0 +1,19 @@
+digraph {
+    
+    qi [shape = point];
+    node [shape = circle];
+    X; 0; 1; 2;
+    3 [shape = doublecircle];
+    
+    qi -> X;
+    X -> X [label = "1"];
+    X -> X [label = "0"];
+    X -> 0 [label = "1"];
+    0 -> 1 [label = "1"];
+    0 -> 1 [label = "0"];
+    1 -> X [label = "&epsilon;"];
+    1 -> 2 [label = "0"];
+    2 -> 3 [label = "1"];
+    2 -> 3 [label = "0"];
+
+}

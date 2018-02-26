@@ -163,13 +163,11 @@ public class GraphConverter {
 		for(Object s : nfa.getStates()){
 			for(Object i : nfa.getInputValues()){
 				Set<?> sucs = nfa.getTransitionF().transition(s, i);
-				if(sucs != null){
-					if("".equals(i)){
-						i = "&epsilon;";
-					}
-					for(Object suc : sucs){
-						result += indent + "\"" + s.toString().replace('[', '{').replace(']', '}') + "\"" + " -> " + "\"" + suc.toString().replace('[', '{').replace(']', '}') + "\"" + " [label = \"" + i.toString() + "\"];\n";
-					}
+				if("".equals(i)){
+					i = "&epsilon;";
+				}
+				for(Object suc : sucs){
+					result += indent + "\"" + s.toString().replace('[', '{').replace(']', '}') + "\"" + " -> " + "\"" + suc.toString().replace('[', '{').replace(']', '}') + "\"" + " [label = \"" + i.toString() + "\"];\n";
 				}
 			}
 		}

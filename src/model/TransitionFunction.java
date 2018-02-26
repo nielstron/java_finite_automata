@@ -2,6 +2,8 @@ package model;
 
 import java.util.Set;
 
+import org.eclipse.jdt.annotation.NonNull;
+
 public interface TransitionFunction<S, T> {
 
 	/**
@@ -10,6 +12,7 @@ public interface TransitionFunction<S, T> {
 	 * @param input
 	 * @return
 	 */
+	@NonNull
 	public Set<S> transition(Object s, Object input);
 	
 }

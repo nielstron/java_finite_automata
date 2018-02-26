@@ -38,11 +38,9 @@ public class RabinScott<S, T> {
 			// Determine all nodes that can be reached from the newly discovered nodes
 			for(S cur : newNodes){
 				Set<S> suc = trans.transition(cur, "");
-				if(suc != null){
-					// Exclude nodes we already know
-					suc.removeAll(closure);
-					nextNodes.addAll(suc);
-				}
+				// Exclude nodes we already know
+				suc.removeAll(closure);
+				nextNodes.addAll(suc);
 			}
 			newNodes = nextNodes;
 		}
@@ -84,9 +82,7 @@ public class RabinScott<S, T> {
 				Set<S> nextStates = new HashSet<>();
 				for(S state : currentStates){
 					Set<S> next = trans.transition(state, input);
-					if(next!= null){
-						nextStates.addAll(epsilonClosure(next, trans));
-					}
+					nextStates.addAll(epsilonClosure(next, trans));
 				}
 				if(!nextStates.isEmpty()){
 					// Insert that into the new Transitionfunction => set of size one as this new automaton is deterministic
