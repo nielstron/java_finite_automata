@@ -111,7 +111,7 @@ public class GraphConverter {
 	
 	public String NFAtoString(FiniteAutomaton<?, ?> nfa){
 		
-		String result = "strict digraph {\n";
+		String result = "digraph {\n";
 		String indent = "    ";
 		
 		result += "\n";

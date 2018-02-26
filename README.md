@@ -31,7 +31,7 @@ digraph finite_state_machine {
 
 -- Result ->
 
-strict digraph {
+digraph {
 
     "__init" [shape = point];
     "{q2}";
