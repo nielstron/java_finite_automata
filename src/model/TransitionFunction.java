@@ -2,7 +2,7 @@ package model;
 
 import java.util.Set;
 
-public interface TransitionFunction<T> {
+public interface TransitionFunction<S, T> {
 
 	/**
 	 * Return the set of possible transitions for input from state
@@ -10,6 +10,6 @@ public interface TransitionFunction<T> {
 	 * @param input
 	 * @return
 	 */
-	public Set<State> transition(State s, T input);
+	public Set<S> transition(S s, T input);
 	
 }

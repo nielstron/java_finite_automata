@@ -1,5 +1,6 @@
 package model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -7,12 +8,12 @@ import java.util.Set;
  * @author nielstron
  *
  */
-public class FiniteAutomaton<T> {
+public class FiniteAutomaton<S, T> {
 
 	/**
 	 * Set of possible states
 	 */
-	private Set<State> states;
+	private Set<S> states;
 	
 	/**
 	 * Set of possible Inputs
@@ -22,20 +23,20 @@ public class FiniteAutomaton<T> {
 	/**
 	 * Transition function for the automaton
 	 */
-	private TransitionFunction<T> transitionF;
+	private TransitionFunction<S, T> transitionF;
 	
 	/**
-	 * Initial State
+	 * Initial States
 	 */
-	private State init;
+	private Set<S> init;
 	
 	/**
 	 * Set of accepting states
 	 */
-	private Set<State> accepting;
+	private Set<S> accepting;
 
-	public FiniteAutomaton(Set<State> states, Set<T> inputValues, TransitionFunction<T> transitionF, State init,
-			Set<State> accepting) {
+	public FiniteAutomaton(Set<S> states, Set<T> inputValues, TransitionFunction<S, T> transitionF, Set<S> init,
+			Set<S> accepting) {
 		super();
 		this.states = states;
 		this.inputValues = inputValues;
@@ -43,18 +44,22 @@ public class FiniteAutomaton<T> {
 		this.init = init;
 		this.accepting = accepting;
 	}
+	
+	public FiniteAutomaton(){
+		this(new HashSet<>(), new HashSet<>(), (s,i)->{return new HashSet<S>();}, new HashSet<>(), new HashSet<>());
+	}
 
 	/**
 	 * @return the states
 	 */
-	public Set<State> getStates() {
+	public Set<S> getStates() {
 		return states;
 	}
 
 	/**
 	 * @param states the states to set
 	 */
-	public void setStates(Set<State> states) {
+	public void setStates(Set<S> states) {
 		this.states = states;
 	}
 
@@ -75,42 +80,42 @@ public class FiniteAutomaton<T> {
 	/**
 	 * @return the transitionF
 	 */
-	public TransitionFunction<T> getTransitionF() {
+	public TransitionFunction<S, T> getTransitionF() {
 		return transitionF;
 	}
 
 	/**
 	 * @param transitionF the transitionF to set
 	 */
-	public void setTransitionF(TransitionFunction<T> transitionF) {
+	public void setTransitionF(TransitionFunction<S, T> transitionF) {
 		this.transitionF = transitionF;
 	}
 
 	/**
 	 * @return the init
 	 */
-	public State getInit() {
+	public Set<S> getInit() {
 		return init;
 	}
 
 	/**
 	 * @param init the init to set
 	 */
-	public void setInit(State init) {
+	public void setInit(Set<S> init) {
 		this.init = init;
 	}
 
 	/**
 	 * @return the accepting
 	 */
-	public Set<State> getAccepting() {
+	public Set<S> getAccepting() {
 		return accepting;
 	}
 
 	/**
 	 * @param accepting the accepting to set
 	 */
-	public void setAccepting(Set<State> accepting) {
+	public void setAccepting(Set<S> accepting) {
 		this.accepting = accepting;
 	}
 	
