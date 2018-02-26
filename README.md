@@ -16,13 +16,10 @@ Outputs an equivalent DNF in DOT language format
 Example:
 ```
 digraph finite_state_machine {
-    rankdir=LR;
-    size="8,5"
 
     S [shape = doublecircle];
     qi [shape = point ]; 
 
-    node [shape = circle];
     qi -> S;
     S  -> q1 [ label = "a" ];
     S  -> S  [ label = "a" ];
