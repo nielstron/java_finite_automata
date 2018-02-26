@@ -13,4 +13,45 @@ Following format should be considered:
 
 Outputs an equivalent DNF in DOT language format
 
+Example:
+```
+digraph finite_state_machine {
+    rankdir=LR;
+    size="8,5"
+
+    S [shape = doublecircle];
+    qi [shape = point ]; 
+
+    node [shape = circle];
+    qi -> S;
+    S  -> q1 [ label = "a" ];
+    S  -> S  [ label = "a" ];
+    q1 -> S  [ label = "a" ];
+    q1 -> q2 [ label = "b" ];
+    q2 -> q1 [ label = "b" ];
+    q2 -> q2 [ label = "b" ];
+}
+
+-- Result ->
+
+strict digraph {
+
+    "__init" [shape = point];
+    "[q2]";
+    "[q1, q2]";
+    "[q1, S]" [shape = doublecircle];
+    "[S]" [shape = doublecircle];
+
+    __init -> "[S]";
+
+    "[q2]" -> "[q1, q2]" [label = "b"];
+    "[q1, q2]" -> "[S]" [label = "a"];
+    "[q1, q2]" -> "[q1, q2]" [label = "b"];
+    "[q1, S]" -> "[q1, S]" [label = "a"];
+    "[q1, S]" -> "[q2]" [label = "b"];
+    "[S]" -> "[q1, S]" [label = "a"];
+}
+
+```
+
 &epsilon; moves aren't yet supported.
