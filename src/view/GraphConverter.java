@@ -112,7 +112,7 @@ public class GraphConverter {
 	public String NFAtoString(FiniteAutomaton<?, ?> nfa){
 		
 		String result = "strict digraph {\n";
-		String indent = "  ";
+		String indent = "    ";
 		
 		result += "\n";
 		// Insert the node with reserved name "__init"
