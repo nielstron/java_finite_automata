@@ -10,8 +10,9 @@ Following format should be considered:
  - Accepting states have shape "doublecircle"
  - Initial states are marked by a state with shape "point" and an edge towards the initial state
  - The name "\_\_init" may not be used for any node
+ - Use `"&epsilon;"` or `""` for &epsilon; moves
 
-Outputs an equivalent DNF in DOT language format
+Outputs an equivalent DNF in DOT language format.
 
 Example:
 ```
