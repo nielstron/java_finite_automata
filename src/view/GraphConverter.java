@@ -121,7 +121,7 @@ public class GraphConverter {
 		
 		// Insert all of the normal states
 		for(Object s : nfa.getStates()){
-			result += indent + "\"" + s.toString() + "\"";
+			result += indent + "\"" + s.toString().replace('[', '{').replace(']', '}') + "\"";
 			if(nfa.getAccepting().contains(s)){
 				result += " [shape = doublecircle]";
 			}
@@ -132,7 +132,7 @@ public class GraphConverter {
 		
 		// Insert edges to the initial states
 		for(Object s : nfa.getInit()){
-			result += indent + "__init -> " + "\"" + s.toString() + "\"" + ";\n";
+			result += indent + "__init -> " + "\"" + s.toString().replace('[', '{').replace(']', '}') + "\"" + ";\n";
 		}
 		
 		result += "\n";
@@ -146,7 +146,7 @@ public class GraphConverter {
 						i = "&epsilon;";
 					}
 					for(Object suc : sucs){
-						result += indent + "\"" + s.toString() + "\"" + " -> " + "\"" + suc.toString() + "\"" + " [label = \"" + i.toString() + "\"];\n";
+						result += indent + "\"" + s.toString().replace('[', '{').replace(']', '}') + "\"" + " -> " + "\"" + suc.toString().replace('[', '{').replace(']', '}') + "\"" + " [label = \"" + i.toString() + "\"];\n";
 					}
 				}
 			}
