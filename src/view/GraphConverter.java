@@ -41,10 +41,9 @@ public class GraphConverter {
 	 * https://martin-thoma.com/how-to-draw-a-finite-state-machine/
 	 * <ul>
 	 * <li> Normal or doublecircled nodes represent states </li>
-	 * <li> Edges with labels represent state transitions, edges without labels represent &epsilon; transitions </li>
+	 * <li> Edges with labels represent state transitions, edges without labels, "" or "&epsilon;" represent &epsilon; transitions </li>
 	 * <li> Accepting states have shape "doublecircle" </li>
 	 * <li> Initial states are marked by a state with shape "point" and an edge towards the initial state </li>
-	 * <li> The name "__init" may not be used for any node </li> 
 	 * </ul>
 	 * @param input
 	 * @return
@@ -117,10 +116,9 @@ public class GraphConverter {
 	 * https://martin-thoma.com/how-to-draw-a-finite-state-machine/
 	 * <ul>
 	 * <li> Normal or doublecircled nodes represent states </li>
-	 * <li> Edges with labels represent state transitions, edges without labels represent &epsilon; transitions </li>
+	 * <li> Edges with labels represent state transitions, edges without labels, "" or "&epsilon;" represent &epsilon; transitions </li>
 	 * <li> Accepting states have shape "doublecircle" </li>
 	 * <li> Initial states are marked by a state with shape "point" and an edge towards the initial state </li>
-	 * <li> The name "__init" may not be used for any node </li> 
 	 * </ul>
 	 * @param input
 	 * @return
