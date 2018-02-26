@@ -25,11 +25,11 @@ import model.TransitionMap;
  */
 public class GraphConverter {
 
-	public Object getAttribute(MutableAttributed<?> attr, String key){
+	public String getAttribute(MutableAttributed<?> attr, String key){
 		
 		for(Entry<String, Object> entry : attr){
 			if(entry.getKey().equals(key)){
-				return entry.getValue();
+				return entry.getValue().toString();
 			}
 		}
 		return null;
@@ -59,7 +59,6 @@ public class GraphConverter {
 		}
 		
 		Collection<MutableNode> nodes = parsedGraph.nodes();
-		Collection<Link> edges = parsedGraph.links();
 		
 		Set<String> states = new HashSet<>();
 		Set<String> inputs = new HashSet<>();
@@ -88,7 +87,7 @@ public class GraphConverter {
 					initStates.add(to.label().toString());
 					continue;
 				}
-				String input = (String) getAttribute(l.attrs(), "label");
+				String input = getAttribute(l.attrs(), "label");
 
 				if(input == null || input.equals("&epsilon;") || input.equals("")){
 					input = "";

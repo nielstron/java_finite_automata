@@ -19,7 +19,8 @@ digraph finite_state_machine {
 
     S [shape = doublecircle];
     qi [shape = point ]; 
-
+    
+    node [shape = circle];
     qi -> S;
     S  -> q1 [ label = "a" ];
     S  -> S  [ label = "a" ];
@@ -34,8 +35,8 @@ digraph finite_state_machine {
 digraph {
 
     "__init" [shape = point];
-    "{q2}";
-    "{q1, q2}";
+    "{q2}" [shape = circle];
+    "{q1, q2}" [shape = circle];
     "{q1, S}" [shape = doublecircle];
     "{S}" [shape = doublecircle];
 
