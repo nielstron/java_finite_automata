@@ -51,13 +51,17 @@ public class RabinScott<S, T> {
 				Set<S> nextStates = new HashSet<>();
 				for(S state : currentStates){
 					Set<S> next = trans.transition(state, input);
-					nextStates.addAll(next);
+					if(next!= null){
+						nextStates.addAll(next);
+					}
 				}
-				// Insert that into the new Transitionfunction => set of size one as this new automaton is deterministic
-				transitionFunc.put(new Pair<>(currentStates, input), new HashSet<>(Arrays.asList(nextStates)));
-				// remember this new state of the resulting automaton for later
-				if(discovered.add(nextStates)){
-					work.offer(nextStates);
+				if(!nextStates.isEmpty()){
+					// Insert that into the new Transitionfunction => set of size one as this new automaton is deterministic
+					transitionFunc.put(new Pair<>(currentStates, input), new HashSet<>(Arrays.asList(nextStates)));
+					// remember this new state of the resulting automaton for later
+					if(discovered.add(nextStates)){
+						work.offer(nextStates);
+					}
 				}
 			}
 		}

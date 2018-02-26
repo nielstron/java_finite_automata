@@ -10,6 +10,6 @@ public interface TransitionFunction<S, T> {
 	 * @param input
 	 * @return
 	 */
-	public Set<S> transition(S s, T input);
+	public Set<S> transition(Object s, Object input);
 	
 }

@@ -7,8 +7,8 @@ public class TransitionMap<S, T> extends HashMap<Pair<S, T>, Set<S>> implements 
 
 	private static final long serialVersionUID = -825216116929693899L;
 
-	public Set<S> transition(S s, T input) {
-		return get(new Pair<S, T>(s, input));
+	public Set<S> transition(Object s, Object input) {
+		return get(new Pair<S, T>((S) s, (T) input));
 	}
 
 	

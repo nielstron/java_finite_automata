@@ -127,4 +127,15 @@ public class FiniteAutomaton<S, T> {
 		this.accepting = accepting;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "NFA [Q=" + states + ", Σ=" + inputValues + ", Δ=" + transitionF
+				+ ", q0=" + init + ", F=" + accepting + "]";
+	}
+	
+	
+
 }
