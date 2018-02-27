@@ -1,4 +1,4 @@
-# Java Finite Automata Libray
+# Java Finite Automata Library
 
 This package includes
  - A parser that reads in GraphViz-formatted finite automata
