@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import model.FiniteAutomaton;
 import model.algorithms.RabinScott;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
@@ -15,6 +16,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.Set;
 import java.awt.event.ActionEvent;
 
 public class mainFrame extends JFrame {
@@ -36,7 +38,9 @@ public class mainFrame extends JFrame {
 					if(args[0] == "-i"){
 						try {
 							String inputfile = args[1];
-							String result = new GraphConverter().NFAtoString(new RabinScott<String, String>().constructDNF( new GraphConverter().stringToFA(new FileInputStream(inputfile))));
+							FiniteAutomaton<String, String> nfa =  new GraphConverter().stringToFA(new FileInputStream(inputfile));
+							FiniteAutomaton<Set<String>, String> dfa = new RabinScott<String, String>().constructDNF(nfa);
+							String result = new GraphConverter().NFAtoString(dfa);
 							System.out.println(result);
 						} catch (FileNotFoundException e) {
 							System.err.println("File not found: " + e.getMessage());
