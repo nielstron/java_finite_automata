@@ -1,10 +1,8 @@
 package model.algorithms;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
@@ -19,43 +17,13 @@ import model.TransitionMap;
  *
  */
 public class RabinScott<S, T> {
-
-	public Map<Set<S>, Set<S>> epsClosureCache = new HashMap<>();
-	
-	public Set<S> epsilonClosure(Set<S> nodes, TransitionFunction<S, T> trans){
-		if(epsClosureCache.containsKey(nodes)){
-			return epsClosureCache.get(nodes);
-		}
-		
-		Set<S> closure = new HashSet<>();
-		
-		Set<S> newNodes = new HashSet<>();
-		newNodes.addAll(nodes);
-		while(!newNodes.isEmpty()){
-			closure.addAll(newNodes);
-			
-			Set<S> nextNodes = new HashSet<>();
-			// Determine all nodes that can be reached from the newly discovered nodes
-			for(S cur : newNodes){
-				Set<S> suc = trans.transition(cur, "");
-				// Exclude nodes we already know
-				suc.removeAll(closure);
-				nextNodes.addAll(suc);
-			}
-			newNodes = nextNodes;
-		}
-		
-		epsClosureCache.put(nodes, closure);
-		
-		return closure;
-	}
 	
 	/**
 	 * Algorithm for converting a NFA to a DFA 
 	 */
 	public FiniteAutomaton<Set<S>, T> constructDNF(FiniteAutomaton<S, T> fa){
 		Set<S> initState = new HashSet<>();
-		initState.addAll(epsilonClosure(fa.getInit(), fa.getTransitionF()));
+		initState.addAll(fa.epsilonClosure(initState));
 		
 		TransitionMap<Set<S>, T> transitionFunc = new TransitionMap<>();
 		Set<T> inputs = fa.getInputValues();
@@ -82,7 +50,7 @@ public class RabinScott<S, T> {
 				Set<S> nextStates = new HashSet<>();
 				for(S state : currentStates){
 					Set<S> next = trans.transition(state, input);
-					nextStates.addAll(epsilonClosure(next, trans));
+					nextStates.addAll(fa.epsilonClosure(next));
 				}
 				if(!nextStates.isEmpty()){
 					// Insert that into the new Transitionfunction => set of size one as this new automaton is deterministic
