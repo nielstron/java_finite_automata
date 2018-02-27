@@ -16,6 +16,11 @@ This package includes
  // Apply the powerset construction to create a deterministic finite automaton from the input
  FiniteAutomaton<Set<String>, String> dfa = new RabinScott<String, String>().constructDNF(nfa);
  
+ // Test whether some input is accepted
+ List<String> input = Arrays.asList("1", "0", "1");
+ if(dfa.accepts(input) == nfa.accepts(input))
+    System.out.println("Success!");
+ 
  // Convert the new automaton to a String in GraphViz-format
  String result = new GraphConverter().NFAtoString(dfa);
  System.out.println(result);
@@ -81,3 +86,8 @@ digraph {
 Visualized with [GraphViz](https://graphviz.gitlab.io):
 
 <img src="examples/example-1-input.png" alt="input automata (NFA)" height="250px"/> -> <img src="examples/example-1-output.png" alt="output automata (DFA)" height="250px"/>
+
+## TODO
+
+ - Make `FiniteAutomaton` Immutable
+ - Create a subclass `DeterministicFinitAutomaton` that allows only one state at a time
