@@ -8,14 +8,17 @@ This package includes
 ## Usage
 
 ```java
-	String inputfile = args[1];
+ String inputfile = "graph.gv";
+ 
  // Create a (generally) nondeterministic finite automaton from a String/ File
-	FiniteAutomaton<String, String> nfa =  new GraphConverter().stringToFA(new FileInputStream(inputfile));
+ FiniteAutomaton<String, String> nfa =  new GraphConverter().stringToFA(new FileInputStream(inputfile));
+ 
  // Apply the powerset construction to create a deterministic finite automaton from the input
-	FiniteAutomaton<Set<String>, String> dfa = new RabinScott<String, String>().constructDNF(nfa);
+ FiniteAutomaton<Set<String>, String> dfa = new RabinScott<String, String>().constructDNF(nfa);
+ 
  // Convert the new automaton to a String in GraphViz-format
-	String result = new GraphConverter().NFAtoString(dfa);
-	System.out.println(result);
+ String result = new GraphConverter().NFAtoString(dfa);
+ System.out.println(result);
 ```
 
 ## NFA Powerset construction
