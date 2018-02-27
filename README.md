@@ -1,4 +1,24 @@
-# NFA Powerset construction
+# Java Finite Automata Libray
+
+This package includes
+ - A parser that reads in GraphViz-formatted finite automata
+ - general purpose Classes FiniteAutomaton and TransitionFunction/ TransitionMap
+ - A stringifier that converts a given FiniteAutomaton-Object to a GraphViz-formatted graph
+ 
+## Usage
+
+```java
+	String inputfile = args[1];
+ // Create a (generally) nondeterministic finite automaton from a String/ File
+	FiniteAutomaton<String, String> nfa =  new GraphConverter().stringToFA(new FileInputStream(inputfile));
+ // Apply the powerset construction to create a deterministic finite automaton from the input
+	FiniteAutomaton<Set<String>, String> dfa = new RabinScott<String, String>().constructDNF(nfa);
+ // Convert the new automaton to a String in GraphViz-format
+	String result = new GraphConverter().NFAtoString(dfa);
+	System.out.println(result);
+```
+
+## NFA Powerset construction
 
 Creates a DFA based on a given NFA. For more information on the procedure have a look at [Powerset construction](https://en.wikipedia.org/wiki/Powerset_construction).
 
