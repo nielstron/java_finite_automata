@@ -23,7 +23,7 @@ public class RabinScott<S, T> {
 	 */
 	public FiniteAutomaton<Set<S>, T> constructDNF(FiniteAutomaton<S, T> fa){
 		Set<S> initState = new HashSet<>();
-		initState.addAll(fa.epsilonClosure(initState));
+		initState.addAll(fa.epsilonClosure(fa.getInit()));
 		
 		TransitionMap<Set<S>, T> transitionFunc = new TransitionMap<>();
 		Set<T> inputs = fa.getInputValues();
