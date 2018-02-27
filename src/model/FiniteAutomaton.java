@@ -1,24 +1,23 @@
 package model;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
+import java.util.List;
 import java.util.Set;
 
-import model.algorithms.RabinScott;
-
 /**
- * NFA in form of a graph
+ * (General) NFA in form of a graph
  * 
+ * @param <S> State space
+ * @param <T> Input space
  * @author nielstron
  *
  */
 public class FiniteAutomaton<S, T> {
 	
 	/**
-	 * The current states of the automaton
+	 * Set of currently active states
 	 */
-	private Set<S> currentState;
+	private Set<S> currentStates;
 	
 	/**
 	 * Set of possible states
@@ -53,13 +52,20 @@ public class FiniteAutomaton<S, T> {
 		this.transitionF = transitionF;
 		this.init = init;
 		this.accepting = accepting;
-		this.currentState = epsilonClosure(init);
+		this.reset();
 	}
 
 	public FiniteAutomaton() {
 		this(new HashSet<>(), new HashSet<>(), (state, input) -> {
 			return new HashSet<S>();
 		}, new HashSet<>(), new HashSet<>());
+	}
+	
+	/**
+	 * Reset the internal state of the automaton
+	 */
+	public void reset() {
+		this.currentStates = this.init;
 	}
 	
 	/**
@@ -88,7 +94,89 @@ public class FiniteAutomaton<S, T> {
 		
 		return closure;
 	}
+	
+	/**
+	 * Returns if a list of inputs is accepted
+	 * <br>
+	 * <br>
+	 * <b> Does not change the internal state of the automaton nor depend on its current state</b>
+	 * @param inputs
+	 * @return Is the automaton in accepting state after reading this input
+	 */
+	public boolean accepts(List<T> inputs){
+		Set<S> currentStates = init;
+		
+		for(T i : inputs){
+			Set<S> newStates = new HashSet<>();
+			for(S state : currentStates){
+				newStates.addAll(transitionF.transition(state, i));
+			}
+			currentStates = newStates;
+		}
+		
+		return isAccepting(currentStates);
+	}
+	
+	/**
+	 * Returns if a given input is accepted<br>
+	 * <br>
+	 * <b> Does change the internal state of the automaton and depend on its previous state
+	 * @param next
+	 * @return Is the automaton in accepting state
+	 */
+	public boolean accept(T next){
+		Set<S> newStates = new HashSet<>();
+		for(S state : currentStates){
+			newStates.addAll(transitionF.transition(state, next));
+		}
+		this.currentStates = newStates;
+		return isAccepting();
+	}
+	
+	/**
+	 * Returns true if the automaton accepts the given input list<br>
+	 * <br>
+	 * <b> Does change the internal state of the automaton and depend on its previous state
+	 * @param next
+	 * @return
+	 */
+	public boolean accept(List<T> next){
+		for(T n : next){
+			accept(n);
+		}
+		return isAccepting();
+	}
 
+	/**
+	 * Returns whether or not this automaton is currently in accepting state
+	 * @return
+	 */
+	public boolean isAccepting(){
+		return isAccepting(this.currentStates);
+	}
+	
+	/**
+	 * Returns whether or not the given state is an accepting state
+	 * @param state
+	 * @return
+	 */
+	public boolean isAccepting(S state){
+		return accepting.contains(state);
+	}
+	
+	/**
+	 * Returns whether or not a state in among the given states is an accepting state
+	 * @param states
+	 * @return
+	 */
+	public boolean isAccepting(Set<S> states){
+		for(S state : states){
+			if(isAccepting(state))
+				return true;
+		}
+		return false;
+	}
+	
 	/**
 	 * @return the states
 	 */
