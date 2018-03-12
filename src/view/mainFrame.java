@@ -18,6 +18,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Set;
 import java.awt.event.ActionEvent;
+import javax.swing.JScrollPane;
 
 public class mainFrame extends JFrame {
 
@@ -64,7 +65,7 @@ public class mainFrame extends JFrame {
 	 */
 	public mainFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 444, 748);
+		setBounds(100, 100, 381, 596);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -73,20 +74,26 @@ public class mainFrame extends JFrame {
 		JLabel lblInsertGraphIn = new JLabel("Insert Graph in GraphViz format here");
 		contentPane.add(lblInsertGraphIn, "cell 0 0");
 		
-		JTextArea txtrDigraphFinitestatemachine = new JTextArea();
-		txtrDigraphFinitestatemachine.setText("digraph {\r\n    \r\n    qi [shape = point];\r\n    node [shape = circle];\r\n    X; 0; 1; 2;\r\n    3 [shape = doublecircle];\r\n    \r\n    qi -> X;\r\n    X -> X [label = \"1\"];\r\n    X -> X [label = \"0\"];\r\n    X -> 0 [label = \"1\"];\r\n    0 -> 1 [label = \"1\"];\r\n    0 -> 1 [label = \"0\"];\r\n    1 -> X [label = \"&epsilon;\"];\r\n    1 -> 2 [label = \"0\"];\r\n    2 -> 3 [label = \"1\"];\r\n    2 -> 3 [label = \"0\"];\r\n\r\n}");
-		contentPane.add(txtrDigraphFinitestatemachine, "cell 0 1,grow");
+		JScrollPane scrollPane = new JScrollPane();
+		contentPane.add(scrollPane, "cell 0 1,grow");
+		
+		JTextArea textArea = new JTextArea();
+		textArea.setText("digraph {\r\n    \r\n    qi [shape = point];\r\n    node [shape = circle];\r\n    X; 0; 1; 2;\r\n    3 [shape = doublecircle];\r\n    \r\n    qi -> X;\r\n    X -> X [label = \"1\"];\r\n    X -> X [label = \"0\"];\r\n    X -> 0 [label = \"1\"];\r\n    0 -> 1 [label = \"1\"];\r\n    0 -> 1 [label = \"0\"];\r\n    1 -> X [label = \"&epsilon;\"];\r\n    1 -> 2 [label = \"0\"];\r\n    2 -> 3 [label = \"1\"];\r\n    2 -> 3 [label = \"0\"];\r\n\r\n}");
+		scrollPane.setViewportView(textArea);
 		
 		JButton btnCreatePowersetConstrcution = new JButton("Create powerset constrcution");
 		contentPane.add(btnCreatePowersetConstrcution, "cell 0 2,growx");
 		
-		JTextArea txtrOutput = new JTextArea();
-		txtrOutput.setText("Output...");
-		contentPane.add(txtrOutput, "cell 0 3,grow");
+		JScrollPane scrollPane_1 = new JScrollPane();
+		contentPane.add(scrollPane_1, "cell 0 3,grow");
+		
+		JTextArea textArea_1 = new JTextArea();
+		textArea_1.setText("Output...");
+		scrollPane_1.setViewportView(textArea_1);
 		
 		btnCreatePowersetConstrcution.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				txtrOutput.setText(new GraphConverter().NFAtoString(new RabinScott<String, String>().constructDNF( new GraphConverter().stringToFA(txtrDigraphFinitestatemachine.getText()))));
+				textArea_1.setText(new GraphConverter().NFAtoString(new RabinScott<String, String>().constructDNF( new GraphConverter().stringToFA(textArea.getText()))));
 			}
 		});
 	}
